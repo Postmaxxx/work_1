@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Task-1</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <div class="root">
+        <header>
+            <nav class="navigation">
+                <div class="menu-left">
+                    <div class="menu-left-block menu-left-block-1">
+                        <div class="menu-logo menu-logo-1"></div>
+                        <div class="menu-logo menu-logo-2"></div>
+                    </div>
+                    <div class="menu-left-block menu-left-block-2">
+                        <a class="menu-link" href="#">Мой профиль</a>
+                    </div>
+                </div>
+                <div class="menu-right user-logo"></div>
+            </nav>
+        </header>
+        <section class="picture-top">
+        </section>
+        <section class="section-main">
+            <div class="column-left">        <!--column-left-->
+                <div class="block-base block-user-profile">   <!--user-profile-->
+                    <div class="user-profile-logo user-logo"></div>
+                    <div class="user-about">
+                        <p class id="user-name">Андрей Снигирёв</p>
+                        <p class="user-occupation">UX/UI designer</p>
+                    </div>
+                    <div class="user-statistics">
+                        <div class="responses">
+                            <p class="responses-count" id="responses">0</p>
+                            <p class="responses-info">отклики</p>
+                        </div>
+                        <div class="user-info-break"></div>
+                        <div class="responses">
+                            <p class="responses-count" id="views">0</p>
+                            <p class="responses-info">просмотры</p>
+                        </div>
+                    </div>
+                    <button class="button-edit-profile" id="edit-profile">Редактировать профиль</button>
+                </div>
+                <div class="block-base block-social">   <!--social-->
+                    <p class="social-text">Соц. сети</p>
+                    <div class="social-icons">
+                        <a href="#" id="icon-vk" target="_blank">
+                            <div class="social-icon-div icon-vk"></div>
+                        </a>
+                        <a href="#" id="icon-tg" target="_blank">
+                            <div class="social-icon-div icon-tg"></div>
+                        </a>
+                        <a href="#" id="icon-youtube" target="_blank">
+                            <div class="social-icon-div icon-youtube"></div>
+                        </a>
+                        <a href="#" id="social-icon-add" onclick="event.preventDefault()">
+                            <div class="social-icon-div icon-add"></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="block-base block-contacts">   <!--contacts-->
+                    <p>телефон</p>
+                    <p id="user-phone">!8 (902) 839-1121</p>
+                    <p>e-mail</p>
+                    <p id="user-email">andrei-1902va@mail.ru</p>
+                    <p>МЕСТОПОЛОЖЕНИЕ</p>
+                    <p id="user-place">г. Пермь</p>
+                    <p>возраст</p>
+                    <p id="user-age">19 лет, 19 сентября 2001</p>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="column-center">        <!--column-center-->
+
+                <div class="block-center-occupation">   <!--block-center-occupation-->
+                    <div class="block-center-header">
+                        <p class="block-center-header-title user-occupation">UX/UI designer</p>
+                        <a href="#" class="block-center-header-changer" id="user-occupation-center-change" onclick="event.preventDefault()">Изменить</a>
+                    </div>
+                    <div class="block-center-body-occupation">
+                        <div class="block-occupation-item">
+                            <p class="occupation-item-caption">Ожидаемая зарплата</p>
+                            <p class="occupation-item-value" id="expected-salary">35000 руб.</p>
+                        </div>
+                        <div class="block-occupation-break"></div>
+                        <div class="block-occupation-item">
+                            <p class="occupation-item-caption">Опыт работы</p>
+                            <p class="occupation-item-value"  id="work-experience">9 месяцев</p>
+                        </div>
+                        <div class="block-occupation-break"></div>
+                        <div class="block-occupation-item">
+                            <p class="occupation-item-caption">Условия</p>
+                            <p class="occupation-item-value" id="work-conditionals">Полная занятость, удалённая работа</p>
+                        </div>                             
+                    </div>
+                </div>
+                <div id="block-center-occupation-edit">  <!--Edit occupation-->
+                    <div class="block-center-occupation-edit-item">
+                        <p class="block-center-occupation-edit-caption">Введите желаемую зарплату:</p>
+                        <input type="number" class="salary-change salary-change-value" id="new-salary-value">
+                        <select class="salary-change salary-change-currency" id="new-salary-currency">
+                            <option>руб.</option>
+                            <option>$</option>
+                            <option>€</option>
+                            <option>£</option>
+                            <option>￥</option>
+                        </select>
+                    </div>
+
+                    <div class="block-center-occupation-edit-item">
+                        <p class="block-center-occupation-edit-caption">Укажите опыт работы:</p>
+                        <input type="number" class="salary-change salary-change-value" id="new-experience-value">
+                        <select class="salary-change salary-change-currency" id="new-experience-period">
+                            <option>дней</option>
+                            <option>месяцев</option>
+                            <option>лет</option>
+                        </select>
+                    </div>
+
+                    <div class="block-center-occupation-edit-item">
+                        <p class="block-center-occupation-edit-caption">Выберите приемлимые условия работы (с Ctrl):</p>
+                        <select size="4" scroll="none"  multiple class="salary-change work-change-types" id="new-conditionals">
+                            <option>Полная занятость</option>
+                            <option>Удаленная работа</option>
+                            <option>Частичная занятость</option>
+                            <option>Командировки</option>
+
+                        </select>
+                    </div>
+                    
+                    <div class="block-center-occupation-buttons">
+                        <button class="block-center-edit-button" id="block-center-occupation-accept">Применить</button>
+                        <button class="block-center-edit-button" id="block-center-occupation-deny">Отмена</button>
+                    </div>
+                </div>
+
+
+                <div class="block-center-break"></div>
+                <div class="block-center-experience">   <!--block-center-experience-->
+                    <div class="block-center-header">
+                        <p class="block-center-header-title">Опыт работы&nbsp;</p>
+                        <p class="block-center-header-value" id="user-experience-center">(9 месяцев)</p>
+                        <a href="#" class="block-center-header-changer" id="user-experience-center-change" onclick="event.preventDefault()">Изменить</a>
+                    </div>
+                    <div class="block-center-body-experience-study" id="user-experience-center-list">
+                        <div>   <!--block-experience-item-->
+                            <div>
+                                <p>!Веб дизайнер</p>
+                                <div>4 месяцев</div>
+                            </div>
+                            <div>
+                                <p>Фриланс</p>
+                                <div>Февраль 2020 - Май 2020</div>
+                            </div>
+                        </div>
+                        <div>   <!--block-experience-item-->
+                            <div>
+                                <p>Product designer</p>
+                                <div>5 месяцев</div>
+                            </div>
+                            <div>
+                                <p>LPMotor </p>
+                                <div>Июнь 2020 - Октябрь 2020</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-center-break"></div>
+                <div class="block-center-experience block-center-study">   <!--block-center-study-->
+                    <div class="block-center-header">
+                        <p class="block-center-header-title">Обучение</p>
+                        <a href="#" class="block-center-header-changer" id="user-study-center-change" onclick="event.preventDefault()">Изменить</a>
+                    </div>
+                    <div class="block-center-body-experience-study" id="user-study-center-list">
+                        <div>   <!--block-study-item-->
+                            <div>
+                                <p>Skillbox</p>
+                                <div>3 месяцев</div>
+                            </div>
+                            <div>
+                                <p>Product designer</p>
+                                <div>Сентябрь 2020 - ...</div>
+                            </div>
+                        </div>
+                        <div>   <!--block-study-item-->
+                            <div>
+                                <p>Contended</p>
+                                <div>1 месяцев</div>
+                            </div>
+                            <div>
+                                <p>CX designer</p>
+                                <div>Октябрь 2020 - ...</div>
+                            </div>
+                        </div>
+                        <div>   <!--block-study-item-->
+                            <div>
+                                <p>Курс Максима Солдаткина</p>
+                                <div>3 месяцев</div>
+                            </div>
+                            <div>
+                                <p>UX/UI designer</p>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-center-break"></div>
+                
+                <div class="block-center-skills">   <!--block-center-skills-->
+                    <div class="block-center-header">
+                        <p class="block-center-header-title">Ключевые навыки</p>
+                        <a href="#" class="block-center-header-changer" id="user-skills-center-change" onclick="event.preventDefault()">Изменить</a>
+                    </div>
+                    <div class="block-center-body-skills" id="user-center-skills">
+                        <div>Figma / XD</div>
+                        <div>Principle</div>
+                        <div>HTML/CSS </div>
+                        <div>пакет Adobe</div>
+                        <div>Проектирование пользовательских интерфейсов</div>
+                        <div>Axure RP</div>
+                        <div>English - Intermediate</div>
+                        <div>UX Writing</div>
+                        <div>Ux аналитика</div>
+                        <a href="#" id="skill-icon-add" onclick="event.preventDefault()">
+                            <div></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="block-center-break"></div>
+
+                <div class="block-center-about">   <!--block-center-about-->
+                    <div class="block-center-header">
+                        <p class="block-center-header-title">Обо мне</p>
+                        <a href="#" class="block-center-header-changer" id="user-about-center-change" onclick="event.preventDefault()">Изменить</a>
+                    </div>
+                    <div class="block-center-body-about">
+                        <p id="user-center-about">Люблю дизайн и делать круто, по-другому не умеем.</p>
+                    </div>
+                </div>
+                <div class="block-center-break"></div>
+
+                <div class="block-center-portfolio">   <!--block-center-portfolio-->
+                    <div class="block-center-header">
+                        <p class="block-center-header-title">Портфолио</p>
+                        <a href="#" class="block-center-header-changer" id="user-portfolio-center-change" onclick="event.preventDefault()">Изменить</a>
+                    </div>
+                    <div class="block-center-body-portfolio-links">
+                        <div id="block-center-portfolio-list">
+                            <a href="#">https://www.behance.net/andrei-1901895</a>
+                        </div>
+                        <div class="block-occupation-break"></div>
+                        <button class="add-portfolio" id="portfolio-link-add">Добавить ссылку</button>
+                    </div>
+                    <div class="block-center-body-portfolio-photos">
+                        <div class="portfolio-photos-container" id="user-photos-list">
+                            <a>
+                                <div></div>
+                            </a>
+                            <a>
+                                <div></div>
+                            </a>
+                        </div>
+                        <div class="block-occupation-break block-portfolio-photos-break"></div>
+                        <button class="add-portfolio" id="photo-add">Добавить фотографию</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="column-right">     <!--column-right-->
+                <div class="block-base block-base-right block-views-week">
+                    <p class="block-right-header">просмотров за неделю</p>
+                    <p class="block-right-info" id="views-week">0</p>
+                </div>
+                <div class="block-base block-base-right block-invites-week">
+                    <p class="block-right-header">приглашений за неделю</p>
+                    <p class="block-right-info" id="invites-week">0</p>
+                </div>
+                <div class="block-base block-base-right block-searchplace">
+                    <p class="block-right-header">место в поиске</p>
+                    <p class="block-right-info" id="place-search">0</p>
+                </div>
+            </div>
+        </section>
+
+    
+    
+    
+    
+    
+    
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
+

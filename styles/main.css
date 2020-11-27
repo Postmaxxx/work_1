@@ -522,10 +522,7 @@
     margin-top: 12px;
 }
 
-/*
-.block-center-body-skill-add {
-}
-*/
+
 
 /*----------------------------  block-center-about   -----------------*/
 
@@ -603,7 +600,7 @@
 }
 
 
-.portfolio-photos-container > a > div {
+.portfolio-photos-container > div {
     background: #F5F5F5;
     border-radius: 6px;
     height: 175px;
@@ -692,21 +689,11 @@
 
 
 
-/*
 
-#salary-plus {
-    visibility: hidden;
-}
-
-#salary-plus {
-    visibility: hidden;
-}
-
-
-*/
 /*------------------------------  First Edit Block Starts -----------------------------*/
 #block-center-occupation-edit {
-    display: none;
+    transform: scaleY(0);
+    position: absolute;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -714,6 +701,7 @@
     box-shadow: 0px 20px 50px -5px rgba(33, 35, 40, 0.07);
     border-radius: 12px;
     padding: 10px 24px 30px;
+    transition: 0.7s;
 }
 
 .block-center-occupation-edit-item {
@@ -774,7 +762,7 @@
     padding: 5px;
     color: #3C3C3C;
     border: none;
-    box-shadow: 0px 10px 15px -5px rgba(33, 35, 40, 0.37);
+    box-shadow: 0px 0px 10px 2px rgba(33, 35, 40, 0.37);
 }
 
 .block-center-occupation-buttons {
@@ -809,7 +797,19 @@
 /*------------------------------  First Edit Block Finished -----------------------------*/
 
 
-
+/*------------------------------  Window 2 block  -----------------------------*/
+.window-2 {
+    transform: scale(0, 0);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0%;
+    top: 0%;
+    background-origin: content-box;
+    box-sizing: border-box;
+    padding: 10% 5%;
+    background-color: transparent;
+}
 
 
 

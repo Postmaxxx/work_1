@@ -110,11 +110,11 @@
                         <p class="block-center-occupation-edit-caption">Введите желаемую зарплату:</p>
                         <input type="number" class="salary-change salary-change-value" id="new-salary-value">
                         <select class="salary-change salary-change-currency" id="new-salary-currency">
-                            <option>руб.</option>
-                            <option>$</option>
-                            <option>€</option>
-                            <option>£</option>
-                            <option>￥</option>
+                            <option value="0">руб.</option>
+                            <option value="1">$</option>
+                            <option value="2">€</option>
+                            <option value="3">£</option>
+                            <option value="4">￥</option>
                         </select>
                     </div>
 
@@ -122,20 +122,20 @@
                         <p class="block-center-occupation-edit-caption">Укажите опыт работы:</p>
                         <input type="number" class="salary-change salary-change-value" id="new-experience-value">
                         <select class="salary-change salary-change-currency" id="new-experience-period">
-                            <option>дней</option>
-                            <option>месяцев</option>
-                            <option>лет</option>
+                            <option value="0">дней</option>
+                            <option value="1">месяцев</option>
+                            <option value="2">лет</option>
                         </select>
                     </div>
 
                     <div class="block-center-occupation-edit-item">
                         <p class="block-center-occupation-edit-caption">Выберите приемлимые условия работы (с Ctrl):</p>
-                        <select size="4" scroll="none"  multiple class="salary-change work-change-types" id="new-conditionals">
-                            <option>Полная занятость</option>
-                            <option>Удаленная работа</option>
-                            <option>Частичная занятость</option>
-                            <option>Командировки</option>
-
+                        <select size="5" scroll="none" multiple class="salary-change work-change-types" id="new-conditionals">
+                            <option value="0">Полная занятость</option>
+                            <option value="1">Удаленная работа</option>
+                            <option value="2">Частичная занятость</option>
+                            <option value="3">Командировки</option>
+                            <option value="4">Ненормированный день</option>
                         </select>
                     </div>
                     
@@ -273,9 +273,6 @@
                 </div>
 
             </div>
-
-
-
 
 
 

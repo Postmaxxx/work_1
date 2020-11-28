@@ -15,14 +15,42 @@ let plug = {
     age: "19 лет, 19 сентября 2001",
 
     expectedSalary: 35000,
-    currency: "руб.",
-    workExperience: "9",
-    workExperiencePeriod: "месяцев",
-    workConditionals: [
-        "полная занятость",
-        "удаленная работа"
+    currency: [
+        "0"
     ],
-       
+       /*
+       currency: 
+       0 - руб.
+       1 - $
+       2 - €
+       3 - £
+       4 - ￥
+       */
+
+    workExperience: "9",
+    workExperiencePeriod: [
+        "1"
+    ],
+   /*
+       workExperiencePeriod: 
+       0 - дней
+       1 - месяцев
+       2 - лет
+       */
+
+
+    workConditionals: [
+        "0",
+        "2"
+    ],
+       /*
+       workConditionals: 
+       0 - полная занятость
+       1 - частичная занятость
+       2 - удаленная работа
+       3 - командировки
+       4 - ненормированный рабочий день
+       */
 
     jobs: [
         {
@@ -72,7 +100,7 @@ let plug = {
         "Ux аналитика"
     ],
         
-    about: "!Люблю дизайн и делать круто, по-другому не умеем.",
+    about: "Люблю дизайн и делать круто, по-другому не умеем.",
 
     portfolioLinks: [
         "https://www.behance.net/andrei-1901895",
@@ -93,7 +121,7 @@ let plug = {
 };
 
 
-const url = "https://picsum.photos/v2/list/?limit=8";
+const url = "https://picsum.photos/v2/list/?limit=8"; //количество фоток пользователя
 let currentUser = {};
 
 
@@ -156,14 +184,41 @@ function fillPage() {
     document.getElementById("user-age").innerText = currentUser.age;
     
     /* currentUser center occupation*/
-    document.getElementById("expected-salary").innerText = `${currentUser.expectedSalary} ${currentUser.currency}`;
-    document.getElementById("work-experience").innerText = `${currentUser.workExperience} ${currentUser.workExperiencePeriod}`;
+
+    function fillElementFromSelect(element, array) {
+        return array.map(item => {
+            for (i = 0; i < document.getElementById(element).options.length; i++) {
+                if (item===document.getElementById(element).options[i].value) {
+                    return document.getElementById(element).options[i].innerText;
+                }
+            }
+        });
+    };
+
+    //Salary
+    document.getElementById("expected-salary").innerText = 
+    currentUser.expectedSalary + " " + 
+    fillElementFromSelect("new-salary-currency", currentUser.currency);
+
+    
+    // Experience
+    document.getElementById("work-experience").innerText = 
+    currentUser.workExperience + " " +
+    fillElementFromSelect("new-experience-period",  currentUser.workExperiencePeriod);
+    
+    
+    //Conditionals
     document.getElementById("work-conditionals").innerText = 
-    currentUser.workConditionals.join(", ")[0].toUpperCase() + 
-    currentUser.workConditionals.join(", ").slice(1).toLowerCase();
+    fillElementFromSelect("new-conditionals", currentUser.workConditionals).join(", ")[0].toUpperCase()+
+    fillElementFromSelect("new-conditionals", currentUser.workConditionals).join(", ").slice(1).toLowerCase();
+
 
     /* currentUser center experience*/
-    document.getElementById("user-experience-center").innerText = ` (${currentUser.workExperience} ${currentUser.workExperiencePeriod})`;
+    document.getElementById("user-experience-center").innerText = " (" + 
+        currentUser.workExperience + " " +
+    fillElementFromSelect("new-experience-period",  currentUser.workExperiencePeriod) + 
+    ")";
+    
     document.getElementById("user-experience-center-list").innerHTML = 
     currentUser.jobs.map(item => `
         <div>
@@ -215,7 +270,7 @@ function fillPage() {
     /* currentUser center portfolio*/
     document.getElementById("block-center-portfolio-list").innerHTML = 
     currentUser.portfolioLinks.map(item => `
-        <a href="${item}" target="_blank">${item}</a>
+        <a href="${item}" target="_blank">${item}</a></br>
         `)
     .join(" ");
 
@@ -241,13 +296,12 @@ function fillPage() {
 function acceptChahgesBlock(block) { //Применить изменения к пользователю
     if (block.id === "block-center-occupation-edit") { //Проверка блока user-occupation-center-change
         currentUser.expectedSalary = document.getElementById("new-salary-value").value;
-        currentUser.currency = document.getElementById("new-salary-currency").value;
+        currentUser.currency = Array.from(document.getElementById("new-salary-currency").value);
         currentUser.workExperience = document.getElementById("new-experience-value").value;
-        currentUser.workExperiencePeriod = document.getElementById("new-experience-period").value;
-        let selected = Array.from(document.getElementById("new-conditionals").options)
+        currentUser.workExperiencePeriod = Array.from(document.getElementById("new-experience-period").value);
+        currentUser.workConditionals = Array.from(document.getElementById("new-conditionals").options)
         .filter(option => option.selected)
         .map(option => option.value);
-        currentUser.workConditionals = [...selected];
     };
 };
 
@@ -307,8 +361,6 @@ function checkBlock(block) { //Проверка корректности вве�
         };
         return inputOk;  //Проверка прошла успешно
     };
-
-
 };
 
 
@@ -319,11 +371,9 @@ function fillBlockData(block) { //Первоначальное заполнен�
         document.getElementById("new-salary-currency").value = currentUser.currency;
         document.getElementById("new-experience-value").value = currentUser.workExperience;
         document.getElementById("new-experience-period").value = currentUser.workExperiencePeriod;
+        
         for (let i = 0; i < document.getElementById("new-conditionals").options.length; i++) {
-            let exist = currentUser.workConditionals.some(item => {
-                if (item.toLowerCase() === document.getElementById("new-conditionals").options[i].innerText.toLowerCase()) return true;
-            });
-            if (exist) {
+            if (currentUser.workConditionals.includes(document.getElementById("new-conditionals").options[i].value, 0)) {
                 document.getElementById("new-conditionals").options[i].selected = true;
             }
         };
@@ -332,8 +382,6 @@ function fillBlockData(block) { //Первоначальное заполнен�
 
 
 function saveChangesLocal(data) {
-    //let saveObject = JSON.stringify(data)
-    //console.log(JSON.stringify(data));
     localStorage.setItem("currentUser", JSON.stringify(data));
 };
 
@@ -356,7 +404,6 @@ function addListeners(block) { //Заполнение блока listeners
             };
         });
     };
-
 };
 
 
@@ -387,6 +434,7 @@ function fillBlock(block) { //Заполнение блока информаци
 
 
 function showBlock(block) {    //Показ блока
+    block.style.transition = "0.6s cubic-bezier(.19,1.01,.5,1)";
     block.style.transform = "scaleY(1)";
     block.style.position = "relative";
     fillBlock(block);
@@ -422,6 +470,8 @@ function makeMainPageListeners() {
     });
     document.getElementById("user-experience-center-change").addEventListener('click', () => {
         alert("Вы изменили блок опыта");
+        alert("Вы удалили пользователя из локального хранилища");
+        localStorage.clear();
     });
     document.getElementById("user-study-center-change").addEventListener('click', () => {
         alert("Вы изменили блок обучения");

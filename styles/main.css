@@ -362,9 +362,11 @@
 
 
 .occupation-item-value {
+    max-width: 75%;
     font-weight: bold;
     font-size: 18px;
-    line-height: 70%;   
+    line-height: 170%;   
+    text-align: right;
     color: #3C3C3C;
 }
 
@@ -559,12 +561,12 @@
 }
 
 .block-center-body-portfolio-links > div > a {
+    display: inline-block;
     font-weight: normal;
     font-size: 18px;
     line-height: 70%;
     text-decoration: underline;
     color: #2C5DDF;
-    display: block;
     margin-top: 18px;
 }
 

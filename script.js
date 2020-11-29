@@ -19,7 +19,7 @@ let plug = {
         "0"
     ],
        /*
-       currency: 
+       currency hint: 
        0 - руб.
        1 - $
        2 - €
@@ -31,8 +31,9 @@ let plug = {
     workExperiencePeriod: [
         "1"
     ],
-   /*
-       workExperiencePeriod: 
+   
+    /*
+       workExperiencePeriod hint: 
        0 - дней
        1 - месяцев
        2 - лет
@@ -44,7 +45,7 @@ let plug = {
         "2"
     ],
        /*
-       workConditionals: 
+       workConditionals hint: 
        0 - полная занятость
        1 - частичная занятость
        2 - удаленная работа
@@ -111,19 +112,17 @@ let plug = {
     ],
 
     photosUrl: [
-
     ],
 
     viewsWeek: 8,
     invitesWeek: 4,
     placeSearch: 19876
-
 };
+
 
 
 const url = "https://picsum.photos/v2/list/?limit=8"; //количество фоток пользователя
 let currentUser = {};
-
 
 
 function getData(url) {
@@ -131,11 +130,9 @@ function getData(url) {
     .then((response) => {
         console.log("Данные (только фото) успешно загружены");
         return response.json()
-    })   
+    })
     .catch((error) => alert(`Ошибка получения данных (фото) с сайта ${url}: ${error}`));
-}
-
-
+};
 
 
 async function pageLoaded() {
@@ -150,73 +147,67 @@ async function pageLoaded() {
     } else {
         currentUser = JSON.parse(localStorage.getItem("currentUser"));
         console.log("Пользователь загружен из локального хранилища");
-    }
+    };
     //конец заглушки
     fillPage();
     makeMainPageListeners();
     makeContentDependListeners();
-}
+};
 
 
+function fillElementFromSelectByArray(element, array) {
+    return array.map(item => {
+        for (i = 0; i < document.getElementById(element).options.length; i++) {
+            if (item===document.getElementById(element).options[i].value) {
+                return document.getElementById(element).options[i].innerText;
+            };
+        };
+    });
+};
 
 
-
-
-function fillPage() {
-    document.querySelectorAll(".user-logo").forEach(item => {
+function fillPage() { //Заплнение страницы данными
+    //Left column
+    /*User profile block*/
+    document.querySelectorAll(".user-logo").forEach(item => { //header & User profile photos
         item.style.backgroundImage = `url(${currentUser.photosUrl[0]})`;
-    })
+    });
     document.getElementById("user-name").innerText = `${currentUser.nameFirst} ${currentUser.nameSecond}`;
     document.getElementById("responses").innerText = currentUser.responses;
     document.getElementById("views").innerText = currentUser.views;
     document.querySelectorAll(".user-occupation").forEach(item => {
         item.innerText = currentUser.occupation;
     });
-    /* currentUser social*/
+    
+    /*social block*/
     document.getElementById("icon-vk").href = currentUser.social.vk;
     document.getElementById("icon-tg").href = currentUser.social.tg;
     document.getElementById("icon-youtube").href = currentUser.social.youtube;
-    
-    /* currentUser contacts*/
+ 
+    /*contacts block*/
     document.getElementById("user-phone").innerText = currentUser.phone;
     document.getElementById("user-email").innerText = currentUser.email;
     document.getElementById("user-place").innerText = currentUser.place;
     document.getElementById("user-age").innerText = currentUser.age;
-    
-    /* currentUser center occupation*/
-
-    function fillElementFromSelect(element, array) {
-        return array.map(item => {
-            for (i = 0; i < document.getElementById(element).options.length; i++) {
-                if (item===document.getElementById(element).options[i].value) {
-                    return document.getElementById(element).options[i].innerText;
-                }
-            }
-        });
-    };
-
-    //Salary
+ 
+    //Center column
+    /*occupation block*/
     document.getElementById("expected-salary").innerText = 
     currentUser.expectedSalary + " " + 
-    fillElementFromSelect("new-salary-currency", currentUser.currency);
-
+    fillElementFromSelectByArray("new-salary-currency", currentUser.currency);
     
-    // Experience
     document.getElementById("work-experience").innerText = 
     currentUser.workExperience + " " +
-    fillElementFromSelect("new-experience-period",  currentUser.workExperiencePeriod);
+    fillElementFromSelectByArray("new-experience-period",  currentUser.workExperiencePeriod);
     
-    
-    //Conditionals
     document.getElementById("work-conditionals").innerText = 
-    fillElementFromSelect("new-conditionals", currentUser.workConditionals).join(", ")[0].toUpperCase()+
-    fillElementFromSelect("new-conditionals", currentUser.workConditionals).join(", ").slice(1).toLowerCase();
+    fillElementFromSelectByArray("new-conditionals", currentUser.workConditionals).join(", ")[0].toUpperCase()+
+    fillElementFromSelectByArray("new-conditionals", currentUser.workConditionals).join(", ").slice(1).toLowerCase();
 
-
-    /* currentUser center experience*/
+    /*experience block*/
     document.getElementById("user-experience-center").innerText = " (" + 
         currentUser.workExperience + " " +
-    fillElementFromSelect("new-experience-period",  currentUser.workExperiencePeriod) + 
+        fillElementFromSelectByArray("new-experience-period",  currentUser.workExperiencePeriod) + 
     ")";
     
     document.getElementById("user-experience-center-list").innerHTML = 
@@ -233,8 +224,8 @@ function fillPage() {
         </div>
         `)
     .join(" ");
-    
-    /* currentUser center study*/
+ 
+    /*study block*/
     document.getElementById("user-study-center-list").innerHTML = 
     currentUser.study.map(item => `
         <div>
@@ -249,9 +240,8 @@ function fillPage() {
         </div>
         `)
     .join(" ");
-
  
-    /* currentUser center skills*/
+    /*skills block*/
     document.getElementById("user-center-skills").innerHTML = 
     currentUser.skills.map(item => `
         <div>${item}</div>
@@ -262,10 +252,8 @@ function fillPage() {
         </a>`
     ;
 
-
-    /* currentUser center about*/
+    /*about block*/
     document.getElementById("user-center-about").innerHTML = currentUser.about;
-
  
     /* currentUser center portfolio*/
     document.getElementById("block-center-portfolio-list").innerHTML = 
@@ -274,33 +262,29 @@ function fillPage() {
         `)
     .join(" ");
 
-
-    /* currentUser center portfolio photos*/
+    /*portfolio photos block*/
     document.getElementById("user-photos-list").innerHTML = 
     currentUser.photosUrl.map(item => `
         <div class="userPhoto" style="background-image: url('${item}')"></div>
         `)
     .join("");
 
-
-
-    /* currentUser right blocks*/
+    //Right column
+    /*All blocks*/
     document.getElementById("views-week").innerText = currentUser.viewsWeek;
     document.getElementById("invites-week").innerText = currentUser.invitesWeek;
     document.getElementById("place-search").innerText = currentUser.placeSearch;
-
-}
-
+};
 
 
 function acceptChahgesBlock(block) { //Применить изменения к пользователю
-    if (block.id === "block-center-occupation-edit") { //Проверка блока user-occupation-center-change
+    if (block.id === "block-center-occupation-edit") { //Проверка блока
         currentUser.expectedSalary = document.getElementById("new-salary-value").value;
         currentUser.currency = Array.from(document.getElementById("new-salary-currency").value);
         currentUser.workExperience = document.getElementById("new-experience-value").value;
         currentUser.workExperiencePeriod = Array.from(document.getElementById("new-experience-period").value);
         currentUser.workConditionals = Array.from(document.getElementById("new-conditionals").options)
-        .filter(option => option.selected)
+        .filter(option => option.checked)
         .map(option => option.value);
     };
 };
@@ -326,7 +310,7 @@ function changeElementStyle(element, type, value) { //Выделение эле�
 
 
 function checkBlock(block) { //Проверка корректности введенной информации в блоке
-    if (block.id === "block-center-occupation-edit") { //Проверка блока user-occupation-center-change
+    if (block.id === "block-center-occupation-edit") { //Проверка блока
         let inputOk = true; //Проверка корректности ввода все информации
          //Проверка введенной суммы зарплаты
         if (!document.getElementById("new-salary-value").value) {
@@ -335,8 +319,7 @@ function checkBlock(block) { //Проверка корректности вве�
             alert("Введенная сумма зарплаты некорректна или пуста!")
             document.getElementById("new-salary-value").addEventListener('click', () => {
                 document.getElementById("new-salary-value").style.backgroundColor = "transparent";
-            }, {once: true});
-            
+            }, {once: true});        
         };
         //Проверка введенного опыта
         if (!document.getElementById("new-experience-value").value) {
@@ -347,11 +330,11 @@ function checkBlock(block) { //Проверка корректности вве�
                 document.getElementById("new-experience-value").style.backgroundColor = "transparent";
             }, {once: true});
         };
-        //Проверка введенных условий работы
-        let selected = Array.from(document.getElementById("new-conditionals").options)
-        .filter(option => option.selected)
+        //Проверка выбранных условий работы
+        let checked = Array.from(document.getElementById("new-conditionals").options)
+        .filter(option => option.checked)
         .map(option => option.value);
-        if (selected.length === 0) {
+        if (checked.length === 0) {
             inputOk = false;
             changeElementStyle(document.getElementById("new-conditionals"), "color", "red");
             alert("Необходимо выбрать хотя бы одно условие работы!")
@@ -359,24 +342,35 @@ function checkBlock(block) { //Проверка корректности вве�
                 document.getElementById("new-conditionals").style.backgroundColor = "transparent";
             }, {once: true});
         };
-        return inputOk;  //Проверка прошла успешно
+        return inputOk;  
     };
 };
 
 
-
 function fillBlockData(block) { //Первоначальное заполнение блока данными пользователя
-    if (block.id === "block-center-occupation-edit") { //Заполнение блока user-occupation-center-change
+    if (block.id === "block-center-occupation-edit") { //Заполнение блока 
         document.getElementById("new-salary-value").value = currentUser.expectedSalary;
         document.getElementById("new-salary-currency").value = currentUser.currency;
         document.getElementById("new-experience-value").value = currentUser.workExperience;
         document.getElementById("new-experience-period").value = currentUser.workExperiencePeriod;
-        
-        for (let i = 0; i < document.getElementById("new-conditionals").options.length; i++) {
-            if (currentUser.workConditionals.includes(document.getElementById("new-conditionals").options[i].value, 0)) {
-                document.getElementById("new-conditionals").options[i].selected = true;
-            }
+        fillElementConditional("new-conditionals", currentUser.workConditionals);
+    };
+};
+
+
+function fillElementConditional(element, conditionalsToDraw) { //Заполнение переданного select в соответствии с массивом значений conditionalsToDraw
+    for (let i = 0; i < document.getElementById(element).options.length; i++) {
+        if (conditionalsToDraw.includes(document.getElementById(element).options[i].value, 0)) {
+            document.getElementById(element).options[i].checked = true;
+            document.getElementById(element).options[i].style.color = "green";
+            document.getElementById(element).options[i].style.outline = "none";
+
+        } else { 
+            document.getElementById(element).options[i].checked = false;
+            document.getElementById(element).options[i].style.background = "transparent";
+            document.getElementById(element).options[i].style.color = "grey";
         };
+        document.getElementById(element).selectedIndex = -1;
     };
 };
 
@@ -386,15 +380,14 @@ function saveChangesLocal(data) {
 };
 
 
-
 function addListeners(block) { //Заполнение блока listeners
-    if (block.id === "block-center-occupation-edit") { //Заполнение блока user-occupation-center-change
+    if (block.id === "block-center-occupation-edit") { //Заполнение блока
         //Кнопка отмена
-        document.getElementById("block-center-occupation-deny").addEventListener('click', result = () => { 
+        document.getElementById("block-center-occupation-deny").addEventListener('click', resultDeny1 = function() { 
             hideBlock(document.getElementById("block-center-occupation-edit"));
         });
         //Кнопка принять
-        document.getElementById("block-center-occupation-accept").addEventListener('click', result = () => { 
+        document.getElementById("block-center-occupation-accept").addEventListener('click', resultAccept1 = function() { 
             if (checkBlock(block)) {
             acceptChahgesBlock(block);
             hideBlock(block);
@@ -403,27 +396,52 @@ function addListeners(block) { //Заполнение блока listeners
             saveChangesLocal(currentUser);
             };
         });
+        // Блок conditionals -> select
+        let lastConditionals = [...currentUser.workConditionals];
+        document.getElementById("new-conditionals").addEventListener('click', resultSelect1 = function() { 
+            redrawSelect(lastConditionals);
+        });
     };
+};
+
+
+function redrawSelect(conditionalsToDraw) {
+    let currentOptionValue = document.getElementById("new-conditionals").value; //Текущий выбранный элемент
+    if (conditionalsToDraw.indexOf(currentOptionValue) === -1) { //Проверка, есть ли элемент в массиве и удаление, если есть; добавление если нет
+        conditionalsToDraw.push(currentOptionValue)
+    } else conditionalsToDraw.splice(conditionalsToDraw.indexOf(currentOptionValue), 1);
+    fillElementConditional("new-conditionals", conditionalsToDraw);
+    lastConditionals = conditionalsToDraw;
 };
 
 
 function removeListeners(block) { //Очищение блока от listeners
     if (block.id === "block-center-occupation-edit") {
-        document.getElementById("block-center-occupation-deny").removeEventListener('click', result);
-        document.getElementById("block-center-occupation-accept").removeEventListener('click', result);
+        document.getElementById("block-center-occupation-deny").removeEventListener('click', resultDeny1);
+        document.getElementById("block-center-occupation-accept").removeEventListener('click', resultAccept1);
+        document.getElementById("new-conditionals").removeEventListener('click', resultSelect1);
     };
 };
 
 
 function resetStyles(block) {
-    if (block.id === "block-center-occupation-edit") { //Очистка стилей блока user-occupation-center-change
+    if (block.id === "block-center-occupation-edit") { //Очистка стилей блока
         document.getElementById("new-salary-value").style.backgroundColor = "transparent";
         document.getElementById("new-experience-value").style.backgroundColor = "transparent";
         document.getElementById("new-conditionals").style.backgroundColor = "transparent";
+        block.style.transform = "scaleY(0)";
+        block.style.position = "absolute";
     };
 };
 
 
+function applyStyleBlock(block) {
+    if (block.id === "block-center-occupation-edit") { //Очистка стилей блока
+        block.style.transition = "0.6s cubic-bezier(.19,1.01,.5,1)";
+        block.style.transform = "scaleY(1)";
+        block.style.position = "relative";
+    };
+};
 
 
 function fillBlock(block) { //Заполнение блока информацией и listeners
@@ -432,18 +450,13 @@ function fillBlock(block) { //Заполнение блока информаци
 };
 
 
-
 function showBlock(block) {    //Показ блока
-    block.style.transition = "0.6s cubic-bezier(.19,1.01,.5,1)";
-    block.style.transform = "scaleY(1)";
-    block.style.position = "relative";
+    applyStyleBlock(block);
     fillBlock(block);
 };
 
 
 function hideBlock(block) { //Скрытие блока и удаление listeners
-    block.style.transform = "scaleY(0)";
-    block.style.position = "absolute";
     removeListeners(block);
     resetStyles(block);
     fillPage();
@@ -451,11 +464,9 @@ function hideBlock(block) { //Скрытие блока и удаление list
 };
 
 
-
 function changeViewBlock(block) { // Переключение режима отображения блока
     block.style.position === "relative" ? hideBlock(block) : showBlock(block);
 };
-
 
 
 function makeMainPageListeners() {
@@ -470,7 +481,7 @@ function makeMainPageListeners() {
     });
     document.getElementById("user-experience-center-change").addEventListener('click', () => {
         alert("Вы изменили блок опыта");
-        alert("Вы удалили пользователя из локального хранилища");
+        alert("Вы удалили пользователя из локального хранилища, обновите страницу");
         localStorage.clear();
     });
     document.getElementById("user-study-center-change").addEventListener('click', () => {
@@ -491,22 +502,19 @@ function makeMainPageListeners() {
     document.getElementById("photo-add").addEventListener('click', () => {
         alert("Вы добавили фотографию в портфолио");
     });
-
-
-
 };
+
+
 
 function makeContentDependListeners() {
     document.getElementById("user-center-skills").lastElementChild.addEventListener('click', () => {
         alert("Вы добавили навык");
     });;
-
     document.querySelectorAll(".user-logo").forEach(item => {
         item.addEventListener('click', () => {
             newWindow("showUserPhoto", item);
         });
     });
-
     document.querySelectorAll(".userPhoto").forEach(item => {
         item.addEventListener('click', () => {
             newWindow("showUserPhoto", item);
@@ -515,9 +523,7 @@ function makeContentDependListeners() {
 };
 
 
-
-
-function newWindow(order, item) {
+function newWindow(order, item) { //Работа со вторым окном
     if (order === "showUserPhoto") {
         let window2 = document.getElementById("window-2");
         //Делаем главное окно полупрозрачным
@@ -530,16 +536,7 @@ function newWindow(order, item) {
             changeElementStyle(document.getElementById("root"), "changeMainWindowOpacity", "1"); //Делаем главное окно видимым
         }, {once: true});
     };
-
 };
 
 
 document.addEventListener("DOMContentLoaded", pageLoaded);
-
-
-
-
-
-
-
-

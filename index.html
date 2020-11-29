@@ -9,7 +9,7 @@
 <body>
     <div class="root" id="root">
         <header>
-            <nav class="navigation">
+            <nav class="navigation">  <!--top menu-->
                 <div class="menu-left">
                     <div class="menu-left-block menu-left-block-1">
                         <div class="menu-logo menu-logo-1"></div>
@@ -73,16 +73,7 @@
                     <p id="user-age">19 лет, 19 сентября 2001</p>
                 </div>
             </div>
-
-
-
-
-
-
-
-
             <div class="column-center">        <!--column-center-->
-
                 <div class="block-center-occupation">   <!--block-center-occupation-->
                     <div class="block-center-header">
                         <p class="block-center-header-title user-occupation">UX/UI designer</p>
@@ -105,7 +96,7 @@
                         </div>                             
                     </div>
                 </div>
-                <div id="block-center-occupation-edit">  <!--Edit occupation-->
+                <div id="block-center-occupation-edit">  <!--Edit occupation, switchable-->
                     <div class="block-center-occupation-edit-item">
                         <p class="block-center-occupation-edit-caption">Введите желаемую зарплату:</p>
                         <input type="number" class="salary-change salary-change-value" id="new-salary-value">
@@ -117,7 +108,6 @@
                             <option value="4">￥</option>
                         </select>
                     </div>
-
                     <div class="block-center-occupation-edit-item">
                         <p class="block-center-occupation-edit-caption">Укажите опыт работы:</p>
                         <input type="number" class="salary-change salary-change-value" id="new-experience-value">
@@ -127,9 +117,8 @@
                             <option value="2">лет</option>
                         </select>
                     </div>
-
                     <div class="block-center-occupation-edit-item">
-                        <p class="block-center-occupation-edit-caption">Выберите приемлимые условия работы (с Ctrl):</p>
+                        <p class="block-center-occupation-edit-caption">Выберите приемлимые условия работы:</p>
                         <select size="5" scroll="none" multiple class="salary-change work-change-types" id="new-conditionals">
                             <option value="0">Полная занятость</option>
                             <option value="1">Удаленная работа</option>
@@ -138,20 +127,17 @@
                             <option value="4">Ненормированный день</option>
                         </select>
                     </div>
-                    
                     <div class="block-center-occupation-buttons">
                         <button class="block-center-edit-button" id="block-center-occupation-accept">Применить</button>
                         <button class="block-center-edit-button" id="block-center-occupation-deny">Отмена</button>
                     </div>
                 </div>
-
-
                 <div class="block-center-break"></div>
                 <div class="block-center-experience">   <!--block-center-experience-->
                     <div class="block-center-header">
                         <p class="block-center-header-title">Опыт работы&nbsp;</p>
                         <p class="block-center-header-value" id="user-experience-center">(9 месяцев)</p>
-                        <a href="#" class="block-center-header-changer" id="user-experience-center-change" onclick="event.preventDefault()">Изменить</a>
+                        <a href="#" class="block-center-header-changer" id="user-experience-center-change" onclick="event.preventDefault()">Изменить/сбросить</a>
                     </div>
                     <div class="block-center-body-experience-study" id="user-experience-center-list">
                         <div>   <!--block-experience-item-->
@@ -216,7 +202,6 @@
                     </div>
                 </div>
                 <div class="block-center-break"></div>
-                
                 <div class="block-center-skills">   <!--block-center-skills-->
                     <div class="block-center-header">
                         <p class="block-center-header-title">Ключевые навыки</p>
@@ -238,7 +223,6 @@
                     </div>
                 </div>
                 <div class="block-center-break"></div>
-
                 <div class="block-center-about">   <!--block-center-about-->
                     <div class="block-center-header">
                         <p class="block-center-header-title">Обо мне</p>
@@ -249,7 +233,6 @@
                     </div>
                 </div>
                 <div class="block-center-break"></div>
-
                 <div class="block-center-portfolio">   <!--block-center-portfolio-->
                     <div class="block-center-header">
                         <p class="block-center-header-title">Портфолио</p>
@@ -269,16 +252,8 @@
                         <div class="block-occupation-break block-portfolio-photos-break"></div>
                         <button class="add-portfolio" id="photo-add">Добавить фотографию</button>
                     </div>
-
                 </div>
-
             </div>
-
-
-
-
-
-
             <div class="column-right">     <!--column-right-->
                 <div class="block-base block-base-right block-views-week">
                     <p class="block-right-header">просмотров за неделю</p>
@@ -296,7 +271,6 @@
         </section>
     </div>
     <div class="window-2" id="window-2"></div>
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-

@@ -320,19 +320,19 @@ function checkBlock(block) { //Проверка корректности вве�
     if (block.id === "block-center-occupation-edit") { //Проверка блока
         let inputOk = true; //Проверка корректности ввода все информации
          //Проверка введенной суммы зарплаты
-        if (document.getElementById("new-salary-value").value < 0 || !document.getElementById("new-salary-value").value) {
+        if (document.getElementById("new-salary-value").value < 0 || !document.getElementById("new-salary-value").value || +document.getElementById("new-salary-value").value >= 10000000) {
             inputOk = false;
             changeElementStyle(document.getElementById("new-salary-value"), "color", "red");
-            alert("Введенная сумма зарплаты отрицательна или пуста!")
+            alert("Введенная сумма зарплаты некорректна или пуста!")
             document.getElementById("new-salary-value").addEventListener('click', () => {
                 document.getElementById("new-salary-value").style.backgroundColor = "transparent";
             }, {once: true});        
         };
         //Проверка введенного опыта
-        if (document.getElementById("new-experience-value").value < 0 || !document.getElementById("new-experience-value").value) {
+        if (document.getElementById("new-experience-value").value < 0 || !document.getElementById("new-experience-value").value || +document.getElementById("new-experience-value").value >= 80) {
             inputOk = false;
             changeElementStyle(document.getElementById("new-experience-value"), "color", "red");
-            alert("Введенный опыт работы отрицателен или пуст!")
+            alert("Введенный опыт работы некорректен или пуст!")
             document.getElementById("new-experience-value").addEventListener('click', () => {
                 document.getElementById("new-experience-value").style.backgroundColor = "transparent";
             }, {once: true});
